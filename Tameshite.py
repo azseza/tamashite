@@ -435,9 +435,7 @@ def main():
 	log("```````````````````````````````````````````````````````````")
 	log("`````````````````````````````````````````````@Github:Azseza")
 	#Main loop
-    global play
-	play = True
-	
+    play = True
     while play: 
         attack = modeSelect()
         if attack.get("mode") == "HTTP Flood":
