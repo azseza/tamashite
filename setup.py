@@ -10,7 +10,7 @@ def load_requirements(fname):
     return [str(ir.req) for ir in reqs]
 setup(
     name="Tameshite",
-    packages=["Tameshite"],
+    py_modules=["Tameshite","ntpL4"],
     version="1.0",
     description="""Tameshite Kudasai
             Lets you stress test your WebApp with various DDoS attacks""",
@@ -24,9 +24,8 @@ setup(
         "Environment :: Console"
         "Operating System :: Linux"
         ],
-    entry_points={
-            'console_scripts': [
-                'Tameshite:main',
-            ],
-        }
+     entry_points='''
+        [console_scripts]
+        Tameshite=Tameshite:main
+    ''',
     )

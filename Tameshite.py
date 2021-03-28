@@ -34,8 +34,16 @@ import logging
 import urllib.request
 import random
 import six
-from PyInquirer import (Token, ValidationError, Validator, print_json, prompt,
-                        style_from_dict)
+
+try:
+    from PyInquirer import (Token, ValidationError, Validator, print_json, prompt,
+                            style_from_dict)
+except ImportError:
+    try: 
+        from prompt_toolkit.token import Token 
+    except ImportError:
+        from pygments.token import Token 
+
 import ntpL4
 
 try:
