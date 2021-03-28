@@ -1,6 +1,0 @@
-pyx
-pyx/dvi
-pyx/font
-pyx/graph
-pyx/graph/axis
-pyx/metapost
