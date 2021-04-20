@@ -1,0 +1,29 @@
+Metadata-Version: 2.1
+Name: cbapi
+Version: 1.7.3
+Summary: Carbon Black REST API Python Bindings
+Home-page: https://github.com/carbonblack/cbapi-python
+Author: Carbon Black
+Author-email: dev-support@carbonblack.com
+License: MIT
+Platform: any
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Dist: requests
+Requires-Dist: attrdict
+Requires-Dist: cachetools
+Requires-Dist: pyyaml
+Requires-Dist: pika
+Requires-Dist: prompt-toolkit
+Requires-Dist: pygments
+Requires-Dist: python-dateutil
+Requires-Dist: protobuf
+Requires-Dist: solrq
+Requires-Dist: validators
+
+UNKNOWN
+
+

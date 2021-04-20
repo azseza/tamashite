@@ -1,13 +1,14 @@
 from setuptools import setup
+import re, uuid
+from setuptools import setup, find_packages
 
-try:
-    from pip._internal.req import parse_requirements
-except ImportError:
-    from pip.req import parse_requirements
+def parse_requirements(filename):
+    """ 
+    load requirements from a pip requirements file
+    """ 
+    lineiter = (line.strip() for line in open(filename))
+    return [line for line in lineiter if line and not line.startswith("#")]
 
-def load_requirements(fname):
-    reqs = parse_requirements(fname, session="test")
-    return [str(ir.req) for ir in reqs]
 setup(
     name="Tameshite",
     py_modules=["Tameshite","ntpL4"],
@@ -16,11 +17,12 @@ setup(
             Lets you stress test your WebApp with various DDoS attacks""",
     author="LTIFI Azer",
     url="https://github.com/azseza/tamashite",
-    install_requires=load_requirements("requirements.txt"),
+    install_requires=parse_requirements("requirements.txt"),
     classifiers=[
+        'Development Status :: 1 - Beta',
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-        "Intended Audience :: Developers and linux power users",
+        "Intended Audience :: Developers and linux users",
         "Environment :: Console"
         "Operating System :: Linux"
         ],

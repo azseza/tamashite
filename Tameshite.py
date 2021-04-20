@@ -20,17 +20,14 @@ Tameshite helps you test your server for performance against most DDoS attacks w
 """
 import os
 from ctypes import cdll
-import subprocess
 import pathlib
 import time
 import click
 from pyfiglet import figlet_format
 from queue import Queue
 import time
-import sys
 import socket
 import threading
-import logging
 import urllib.request
 import random
 import six
@@ -246,7 +243,7 @@ class Layer7Attack:
         return bots
     
     @classmethod
-    def user_agent(slef) -> list:
+    def user_agent() -> list:
         """
         Function that provides a tuple containing packet data for mayer7 ddos
         """
@@ -288,7 +285,7 @@ class Layer7Attack:
                 s.shutdown(1)
                 log("shut<->down")
             time.sleep(.1)
-        except socket.error as e:
+        except socket.error :
             log("no connection! server maybe down")
             time.sleep(.1)
     
