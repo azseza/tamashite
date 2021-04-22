@@ -1,0 +1,209 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Login",
+				"login.html\t⟠"
+			],
+			[
+				"fo",
+				"footer\tTag"
+			],
+			[
+				"Home",
+				"home\t⟠"
+			],
+			[
+				"h",
+				"h1\tTag"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/azseza/.cache/kioexec/krun/30037_0/Getting_Started",
+		"/home/azseza/.cache/kioexec/krun/116285_0/unnamed",
+		"/home/azseza/eclipse-workspace/Dept/src/main/resources/templates/Etudiants.html",
+		"/home/azseza/.cache/kioexec/krun/58630_0/1339104",
+		"/home/azseza/.cache/kioexec/krun/58669_0/1339104",
+		"/home/azseza/.cache/kioexec/krun/58848_0/1197828",
+		"/home/azseza/.cache/kioexec/krun/58859_0/1197828",
+		"/home/azseza/.cache/kioexec/krun/59006_0/1339104",
+		"/home/azseza/.cache/kioexec/krun/61264_0/1297008",
+		"/home/azseza/.cache/kioexec/krun/105485_0/search",
+		"/home/azseza/Desktop/Sesame/SI/tp0/serverNode/templates/static/style.css",
+		"/home/azseza/Desktop/Sesame/SI/tp0/serverNode/templates/home.html",
+		"/home/azseza/Desktop/Sesame/SI/tp0/serverNode/templates/login.html",
+		"/home/azseza/Desktop/Azer LTIFI_files/a.html",
+		"/home/azseza/Desktop/GitHub/biblio_project/src/main/resources/templates/frontOffice/index.html",
+		"/home/azseza/Downloads/AdminLTE-3.1.0-rc/index.html",
+		"/home/azseza/Downloads/AdminLTE-3.1.0-rc/pages/gallery.html",
+		"/home/azseza/Desktop/GitHub/biblio_project/src/main/resources/templates/frontOffice/home.html",
+		"/home/azseza/Desktop/GitHub/biblio_project/src/main/resources/templates/frontOffice/404.html",
+		"/home/azseza/Desktop/GitHub/biblio_project/src/main/resources/templates/frontOffice/bookDetails.html",
+		"/home/azseza/Desktop/GitHub/biblio_project/src/main/resources/templates/frontOffice/gallery.html",
+		"/home/azseza/Desktop/GitHub/biblio_project/src/main/resources/templates/frontOffice/kanban.html",
+		"/home/azseza/Desktop/GitHub/biblio_project/src/main/resources/templates/frontOffice/loginUser.html",
+		"/home/azseza/Downloads/AdminLTE-3.1.0-rc/pages/examples/e-commerce (copy).html",
+		"/home/azseza/Downloads/AdminLTE-3.1.0-rc/pages/examples/404.html",
+		"/home/azseza/Desktop/Sesame/javascript101/ls/checkout.html",
+		"/home/azseza/Desktop/Sesame/javascript101/ls/cart.html",
+		"/home/azseza/Downloads/AdminLTE-3.1.0-rc/pages/examples/loginUser.html",
+		"/tmp/kite_tutorial.py"
+	],
+	"find":
+	{
+		"height": 36.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 36.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/Python/Python.sublime-build",
+	"project": "README.sublime-project",
+	"replace":
+	{
+		"height": 68.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
