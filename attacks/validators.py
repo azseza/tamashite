@@ -67,7 +67,6 @@ class TargetValidator(Validator):
     Validator for host target adress
     same as Ip Validator
     """
-
     def validate(self, value):
         try:
             ipaddress.ip_address(value)

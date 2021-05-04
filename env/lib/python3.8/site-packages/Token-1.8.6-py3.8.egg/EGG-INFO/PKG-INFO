@@ -1,0 +1,12 @@
+Metadata-Version: 1.0
+Name: Token
+Version: 1.8.6
+Summary: Token client to REST Apis
+Home-page: UNKNOWN
+Author: Mariano Sorgente
+Author-email: mariano.sorgente@token.io
+License: UNKNOWN
+Description:     Interact with Token REST Apis
+            
+Keywords: Swagger,Token API
+Platform: UNKNOWN
