@@ -30,12 +30,11 @@ A simple python Cli app that helps you test your WebApplication for various DDoS
 by @azseza
 ## You'll need 
 Python 3.8* 
-golang 1.3* 
 ## Instalation
 ```bash 
 git clone https://github.com/azseza/tamashite.git
 cd tamashite
-make install
+python3 setup.py install
 python3 Tamashite.py
 ```
 ## Reporting issues
