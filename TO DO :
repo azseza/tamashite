@@ -2,5 +2,4 @@ TO DO :
 	migrate all attacks to classes and migrate all classes in seprate files
 	all classes should be instances of multiprocessing 
 	The golang module should be revisited
-GolangModule : 
-	
+DELETE Pompt toolkit	

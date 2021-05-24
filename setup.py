@@ -19,7 +19,7 @@ setup(
         "Tameshite",
         "attacks.ntpL4",
         "attacks.validators",
-        "attacks.goattack.py"],
+        "attacks.goattack"],
     version="1.0",
     description="""Tameshite Kudasai
             Lets you stress test your WebApp with various DDoS attacks""",

