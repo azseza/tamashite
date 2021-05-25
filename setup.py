@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 """
 https://stackoverflow.com/questions/39499453/package-only-binary-compiled-so-files-of-a-python-library-compiled-with-cython
 set up the extensions 
@@ -15,15 +15,12 @@ def parse_requirements(filename):
 
 setup(
     name="Tameshite",
-    py_modules=[
-        "Tameshite",
-        "attacks.ntpL4",
-        "attacks.validators",
-        "attacks.goattack"],
     version="1.0",
     description="""Tameshite Kudasai
             Lets you stress test your WebApp with various DDoS attacks""",
     author="LTIFI Azer",
+    packages=find_packages(include=['tameshite', 'tameshite.*']),
+    include_package_data=True,
     url="https://github.com/azseza/tamashite",
     install_requires=parse_requirements("requirements.txt"),
     classifiers=[
@@ -36,6 +33,7 @@ setup(
         ],
      entry_points='''
         [console_scripts]
-        Tameshite=Tameshite:main
+        Tameshite=tameshite.Tameshite:main
     ''',
     )
+
