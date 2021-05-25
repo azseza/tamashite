@@ -1,0 +1,16 @@
+Metadata-Version: 1.1
+Name: we-get
+Version: 1.0.1
+Summary: Search torrents from the command-line
+Home-page: https://github.com/levisabah/we-get
+Author: Levi Sabah
+Author-email: x@levisabah.com
+License: MIT
+Description: UNKNOWN
+Keywords: command line,torrent,torrents,magnet
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Console
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
